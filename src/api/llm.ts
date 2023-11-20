@@ -1,3 +1,4 @@
+const URL = "https://02e4-151-205-163-6.ngrok-free.app/api/generate";
 export async function callLLM(model: string, prompt: string) {
   const parsedPrompt = prompt.trimEnd();
   const myHeaders = new Headers();
@@ -12,8 +13,5 @@ export async function callLLM(model: string, prompt: string) {
     redirect: "follow",
   };
 
-  return fetch(
-    "https://764a-151-205-163-6.ngrok-free.app/api/generate",
-    requestOptions
-  );
+  return fetch(URL, requestOptions);
 }
