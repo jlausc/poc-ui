@@ -1,8 +1,7 @@
 <script lang="ts">
   import { callLLM } from "../api/llm";
   import { messages, modelMessages, userMessages } from "../stores/messages";
-
-  let processing = false;
+  import { processing } from "../stores/processing";
   let input = "";
 
   let result = "";
@@ -11,14 +10,14 @@
     if (!msg) {
       return;
     }
-    if (processing) {
+    if ($processing) {
       alert("Please wait for the current request to finish.");
       return;
     }
 
     $messages = [...$messages, msg];
     input = "";
-    processing = true;
+    $processing = true;
 
     const msgIndex = $messages.length;
     $messages[msgIndex] = "";
@@ -60,7 +59,7 @@
       })
       .then((r) => {
         console.log("done processing", r);
-        processing = false;
+        $processing = false;
       })
       .catch((err) => console.error(err));
   };
@@ -78,8 +77,6 @@
 <svelte:window on:keydown={onKeyDown} />
 
 <textarea class="w-5/6 h-full" bind:value={input} />
-
-{processing ? "PROCESSING" : "WAITING"}
 
 <button
   class="w-1/6 h-full border border-blue-500 rounded-lg"
