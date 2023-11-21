@@ -76,7 +76,7 @@
     e: KeyboardEvent & { currentTarget: EventTarget & Window }
   ) => {
     if (e.code == "Enter") {
-      console.log("Enter pressed");
+      console.log("Enter pressed", $processing);
       if ($processing) return;
       handleSubmit(input);
     }

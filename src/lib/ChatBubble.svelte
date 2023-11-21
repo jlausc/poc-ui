@@ -2,9 +2,10 @@
   export let sender = "";
   export let text = "";
 
-  let displayText = [text];
+  $: displayText = [text];
 
   $: {
+    console.log("TEXT: ", text, displayText);
     if (text.includes("``")) {
       displayText = text.split("```");
     }
