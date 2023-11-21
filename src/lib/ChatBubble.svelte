@@ -5,6 +5,6 @@
 
 <div class="chat {sender == 'user' ? 'chat-start' : 'chat-end'}">
   <div class="chat-bubble">
-    {text}
+    {text.length ? text : "processing ..."}
   </div>
 </div>

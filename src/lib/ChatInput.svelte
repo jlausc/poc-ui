@@ -1,10 +1,9 @@
 <script lang="ts">
   import { callLLM } from "../api/llm";
-  import { messages, modelMessages, userMessages } from "../stores/messages";
+  import { messages } from "../stores/messages";
   import { processing } from "../stores/processing";
+  import { modelName } from "../stores/model";
   let input = "";
-
-  let result = "";
 
   const handleSubmit = (msg: string) => {
     if (!msg) {
@@ -22,8 +21,10 @@
     const msgIndex = $messages.length;
     $messages[msgIndex] = "";
 
+    console.log("$", $modelName);
+
     // Call endpoint here
-    callLLM("codellama", msg)
+    callLLM($modelName, msg)
       // Retrieve its body as ReadableStream
       .then((response) => {
         if (!response.body) return;
