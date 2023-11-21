@@ -77,6 +77,7 @@
   ) => {
     if (e.code == "Enter") {
       console.log("Enter pressed");
+      if ($processing) return;
       handleSubmit(input);
     }
   };

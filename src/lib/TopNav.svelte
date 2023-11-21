@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { modelName } from "../stores/model";
+  import { code, modelName } from "../stores/model";
 
   import { modelMap, codellama, openHermes } from "../utils/maps";
 </script>
@@ -8,6 +8,16 @@
   <div class="flex-1">
     <a class="btn btn-ghost text-xl">Current Model: {modelMap[$modelName]}</a>
   </div>
+
+  <label for="code-input">Adjust code here:</label>
+
+  <input
+    type="text"
+    id="code-input"
+    placeholder="Enter code here"
+    class="input input-sm input-bordered input-primary max-w-xs mx-4"
+    bind:value={$code}
+  />
 
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1 z-10">
