@@ -1,4 +1,4 @@
-const URL = "https://85f4-151-205-163-6.ngrok-free.app/api/generate";
+const URL = "https://9112-151-205-163-6.ngrok-free.app/api/generate";
 export async function callLLM(model: string, prompt: string) {
   const parsedPrompt = prompt.trimEnd();
   const myHeaders = new Headers();
