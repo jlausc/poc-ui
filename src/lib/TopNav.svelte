@@ -8,6 +8,7 @@
   <div class="flex-1">
     <a class="btn btn-ghost text-xl">Current Model: {modelMap[$modelName]}</a>
   </div>
+
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1 z-10">
       <!-- <li><a>Link</a></li> -->

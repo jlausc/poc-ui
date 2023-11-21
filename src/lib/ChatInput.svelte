@@ -1,7 +1,7 @@
 <script lang="ts">
   import { callLLM } from "../api/llm";
   import { messages } from "../stores/messages";
-  import { processing } from "../stores/processing";
+  import { cancelled, processing, requestComplete } from "../stores/processing";
   import { modelName } from "../stores/model";
   let input = "";
 
@@ -9,7 +9,7 @@
     if (!msg) {
       return;
     }
-    if ($processing) {
+    if (!$requestComplete || $processing) {
       alert("Please wait for the current request to finish.");
       return;
     }
@@ -40,8 +40,17 @@
 
                 $messages[msgIndex] += res;
 
-                if (done) {
+                if ($cancelled) {
                   controller.close();
+                  $processing = false;
+                  $cancelled = false;
+                  return;
+                }
+
+                if (res == "") {
+                  controller.close();
+                  $cancelled = false;
+                  $processing = false;
                   return;
                 }
                 // Enqueue the next data chunk into our target stream
@@ -55,13 +64,11 @@
       })
       // Create a new response out of the stream
       .then((stream) => {
-        new Response(stream);
-        console.log("stream", stream);
+        // new Response(stream);
+        // console.log("stream", stream);
+        $requestComplete = true;
       })
-      .then((r) => {
-        console.log("done processing", r);
-        $processing = false;
-      })
+
       .catch((err) => console.error(err));
   };
 
@@ -81,6 +88,7 @@
 
 <button
   class="w-1/6 h-full border border-blue-500 rounded-lg"
+  disabled={$processing}
   on:click={() => handleSubmit(input)}>Submit</button
 >
 
