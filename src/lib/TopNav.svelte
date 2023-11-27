@@ -1,7 +1,7 @@
 <script lang="ts">
   import { code, modelName } from "../stores/model";
 
-  import { modelMap, codellama, openHermes } from "../utils/maps";
+  import { modelMap, codellama, openHermes, mistral } from "../utils/maps";
 </script>
 
 <div class="navbar bg-base-100">
@@ -26,6 +26,13 @@
         <details>
           <summary> Model </summary>
           <ul class="p-2 my-2 bg-base-100">
+            <li>
+              <a
+                on:click={() => {
+                  $modelName = "mistral";
+                }}>{mistral}</a
+              >
+            </li>
             <li>
               <a
                 on:click={() => {
